@@ -13,6 +13,10 @@ public class ProductoVendido {
         this.empleadoId = empleadoId;
     }
 
+    public ProductoVendido(int id, String articuloP, int cantidad, int empleadoId) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public int getId() { return id; }
     public int getArticuloId() { return articuloId; }
     public int getCantidadVendida() { return cantidadVendida; }

@@ -14,14 +14,15 @@ public class MenuConsola {
             HorarioDAO horarioDAO = new HorarioDAO(conn);
             SalarioDAO salarioDAO = new SalarioDAO(conn);
             ProductoVendidoDAO productoDAO = new ProductoVendidoDAO(conn);
-
+            ArticuloDAO articuloDAO = new ArticuloDAO(conn);
             int opcion;
             do {
-                System.out.println("\n===== MENu PRINCIPAL =====");
+                System.out.println("\n===== Menu Principal =====");
                 System.out.println("1. Gestion de Empleados");
                 System.out.println("2. Gestion de Horarios");
                 System.out.println("3. Gestion de Salarios");
                 System.out.println("4. Gestion de Productos Vendidos");
+                System.out.println("5. Gestion de Articulos");
                 System.out.println("0. Salir");
                 System.out.print("Opcion: ");
                 opcion = sc.nextInt();
@@ -31,8 +32,9 @@ public class MenuConsola {
                     case 2 -> menuHorario(sc, horarioDAO);
                     case 3 -> menuSalario(sc, salarioDAO);
                     case 4 -> menuProductoVendido(sc, productoDAO);
-                    case 0 -> System.out.println("Saliendo del sistema...");
-                    default -> System.out.println("Opcion inválida.");
+                    case 5 -> menuArticulo(sc, articuloDAO);
+                    case 0 -> System.out.println("Saliendo del sistema");
+                    default -> System.out.println("Opcion inválida");
                 }
 
             } while (opcion != 0);
@@ -42,12 +44,10 @@ public class MenuConsola {
         }
     }
 
-    // ================== Submenús ==================
-
     private static void menuEmpleado(Scanner sc, EmpleadoDAO dao) throws SQLException {
         int opcion;
         do {
-            System.out.println("\n--- MENU EMPLEADO ---");
+            System.out.println("\n--- Menu Empleado ---");
             System.out.println("1. Insertar");
             System.out.println("2. Listar");
             System.out.println("3. Actualizar");
@@ -86,7 +86,7 @@ public class MenuConsola {
                     dao.eliminar(id);
                 }
                 case 0 -> {}
-                default -> System.out.println("Opcion inválida.");
+                default -> System.out.println("Opcion invalida.");
             }
         } while (opcion != 0);
     }
@@ -94,7 +94,7 @@ public class MenuConsola {
     private static void menuHorario(Scanner sc, HorarioDAO dao) throws SQLException {
         int opcion;
         do {
-            System.out.println("\n--- MENu HORARIO ---");
+            System.out.println("\n--- Menu Horario ---");
             System.out.println("1. Insertar");
             System.out.println("2. Listar");
             System.out.println("3. Actualizar");
@@ -110,11 +110,11 @@ public class MenuConsola {
                     System.out.print("Empleado ID: ");
                     int empId = sc.nextInt();
                     sc.nextLine();
-                    System.out.print("Fecha (YYYY-MM-DD): ");
+                    System.out.print("Fecha: ");
                     Date fecha = Date.valueOf(sc.nextLine());
-                    System.out.print("Hora Entrada (HH:MM:SS): ");
+                    System.out.print("Hora Entrada: ");
                     Time entrada = Time.valueOf(sc.nextLine());
-                    System.out.print("Hora Salida (HH:MM:SS): ");
+                    System.out.print("Hora Salida: ");
                     Time salida = Time.valueOf(sc.nextLine());
                     dao.insertar(new Horario(id, empId, fecha, entrada, salida));
                 }
@@ -129,11 +129,11 @@ public class MenuConsola {
                     int id = sc.nextInt();
                     System.out.print("Nuevo Empleado ID: ");
                     int empId = sc.nextInt(); sc.nextLine();
-                    System.out.print("Nueva Fecha (YYYY-MM-DD): ");
+                    System.out.print("Nueva Fecha: ");
                     Date fecha = Date.valueOf(sc.nextLine());
-                    System.out.print("Nueva Hora Entrada (HH:MM:SS): ");
+                    System.out.print("Nueva Hora Entrada: ");
                     Time entrada = Time.valueOf(sc.nextLine());
-                    System.out.print("Nueva Hora Salida (HH:MM:SS): ");
+                    System.out.print("Nueva Hora Salida: ");
                     Time salida = Time.valueOf(sc.nextLine());
                     dao.actualizar(new Horario(id, empId, fecha, entrada, salida));
                 }
@@ -151,7 +151,7 @@ public class MenuConsola {
     private static void menuSalario(Scanner sc, SalarioDAO dao) throws SQLException {
         int opcion;
         do {
-            System.out.println("\n--- MENu SALARIO ---");
+            System.out.println("\n--- Menu Salario ---");
             System.out.println("1. Insertar");
             System.out.println("2. Listar");
             System.out.println("3. Actualizar");
@@ -190,7 +190,7 @@ public class MenuConsola {
                     dao.eliminar(id);
                 }
                 case 0 -> {}
-                default -> System.out.println("Opcion inválida.");
+                default -> System.out.println("Opcion invalida.");
             }
         } while (opcion != 0);
     }
@@ -198,7 +198,7 @@ public class MenuConsola {
     private static void menuProductoVendido(Scanner sc, ProductoVendidoDAO dao) throws SQLException {
         int opcion;
         do {
-            System.out.println("\n--- MENu PRODUCTO VENDIDO ---");
+            System.out.println("\n--- Menu Producto Vendido ---");
             System.out.println("1. Insertar");
             System.out.println("2. Listar");
             System.out.println("3. Actualizar");
@@ -211,7 +211,7 @@ public class MenuConsola {
                 case 1 -> {
                     System.out.print("ID: ");
                     int id = sc.nextInt();
-                    System.out.print("ID Artículo: ");
+                    System.out.print("ID Articulo: ");
                     int articuloId = sc.nextInt();
                     System.out.print("Cantidad Vendida: ");
                     int cantidad = sc.nextInt();
@@ -221,14 +221,14 @@ public class MenuConsola {
                 }
                 case 2 -> {
                     for (ProductoVendido p : dao.listar()) {
-                        System.out.printf("ID: %d | Artículo: %d | Cantidad: %d | Empleado: %d\n",
+                        System.out.printf("ID: %d | Articulo: %d | Cantidad: %d | Empleado: %d\n",
                                 p.getId(), p.getArticuloId(), p.getCantidadVendida(), p.getEmpleadoId());
                     }
                 }
                 case 3 -> {
                     System.out.print("ID a actualizar: ");
                     int id = sc.nextInt();
-                    System.out.print("Nuevo ID Artículo: ");
+                    System.out.print("Nuevo ID Articulo: ");
                     int articuloId = sc.nextInt();
                     System.out.print("Nueva Cantidad: ");
                     int cantidad = sc.nextInt();
@@ -242,8 +242,58 @@ public class MenuConsola {
                     dao.eliminar(id);
                 }
                 case 0 -> {}
-                default -> System.out.println("Opcion inválida.");
+                default -> System.out.println("Opcion invalida.");
             }
         } while (opcion != 0);
     }
+   private static void menuArticulo(Scanner sc, ArticuloDAO dao) throws SQLException {
+    int opcion;
+    do {
+        System.out.println("\n--- Menu Articulo ---");
+        System.out.println("1. Insertar");
+        System.out.println("2. Listar");
+        System.out.println("3. Actualizar");
+        System.out.println("4. Eliminar");
+        System.out.println("0. Volver");
+        System.out.print("Opcion: ");
+        opcion = sc.nextInt(); sc.nextLine();
+
+        switch (opcion) {
+            case 1 -> {
+                System.out.print("Numero: ");
+                int nombre = sc.nextInt();
+                System.out.print("Cantidad: ");
+                int cantidad = sc.nextInt();
+                System.out.print("Precio: ");
+                double precio = sc.nextDouble();
+                dao.insertar(new Articulo(0, nombre, cantidad, precio));
+            }
+            case 2 -> {
+                for (Articulo a : dao.listar()) {
+                    System.out.printf("ID: %d | Numero: %s | Cantidad: %d | Precio: %.2f\n",
+                            a.getId(), a.getNombre(), a.getCantidad(), a.getPrecio());
+                }
+            }
+            case 3 -> {
+                System.out.print("ID a actualizar: ");
+                int id = sc.nextInt(); sc.nextLine();
+                System.out.print("Nuevo numero: ");
+                int nombre = sc.nextInt();
+                System.out.print("Nueva cantidad: ");
+                int cantidad = sc.nextInt();
+                System.out.print("Nuevo precio: ");
+                double precio = sc.nextDouble();
+                dao.actualizar(new Articulo(id, nombre, cantidad, precio));
+            }
+            case 4 -> {
+                System.out.print("ID a eliminar: ");
+                int id = sc.nextInt();
+                dao.eliminar(id);
+            }
+            case 0 -> {}
+            default -> System.out.println("Opcion invalida.");
+        }
+    } while (opcion != 0);
+}
+
 }
